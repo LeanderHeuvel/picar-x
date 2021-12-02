@@ -4,8 +4,6 @@ This fork is still under development and not ready for deployment. We aim to mak
 
 
 Dependencies TODO:
- - update apt-get... Done
- - install python3-pip... Done
  - install i2c-tools... Done
  - install espeak... Done
  - install wiringpi... Error
