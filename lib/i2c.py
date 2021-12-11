@@ -6,7 +6,7 @@ class I2C(object):
     SLAVE  = 1
     RETRY = 5
 
-    def __init__(self, *args, **kargs):     # *args表示位置参数（形式参数），可无，； **kargs表示默认值参数，可无。
+    def __init__(self, *args, **kargs):     # *args represents positional parameters (formal parameters), optional; **kargs represents default value parameters, optional.
         super().__init__()
         self._bus = 1
         self._smbus = SMBus(self._bus)
@@ -42,9 +42,9 @@ class I2C(object):
         else:
             return False
 
-    def scan(self):                             # 查看有哪些i2c设备
+    def scan(self):                             # Check which i2c devices are available
         cmd = "i2cdetect -y %s" % self._bus
-        _, output = self.run_command(cmd)          # 调用basic中的方法，在linux中运行cmd指令，并返回运行后的内容
+        _, output = self.run_command(cmd)          # Call the method in basic, run the cmd command in linux, and return the content after running
         
         outputs = output.split('\n')[1:]        # 以回车符为分隔符，分割第二行之后的所有行
         # self._debug("outputs")

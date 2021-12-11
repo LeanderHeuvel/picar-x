@@ -1,6 +1,6 @@
 # from .basic import _Basic_class
-import RPi.GPIO as GPIO
-
+# import RPi.GPIO as GPIO
+from periphery import GPIO
 class Pin(object):
     OUT = GPIO.OUT
     IN = GPIO.IN
@@ -71,8 +71,8 @@ class Pin(object):
 
     def __init__(self, *value):
         super().__init__()
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
+        # GPIO.setmode(GPIO.BCM)
+        # GPIO.setwarnings(False)
 
         self.check_board_type()
 
