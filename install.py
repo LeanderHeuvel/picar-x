@@ -85,27 +85,27 @@ def install():
     # do(msg="cleanup",
     #     cmd='run_command("sudo rm -rf usr")')
 
-    print("Setup interfaces")
-    do(msg="turn on I2C",
-        cmd='Config().set("dtparam=i2c_arm", "on")')
-    do(msg="Add I2C module",
-        cmd='Modules().set("i2c-dev")')
-    do(msg="turn on SPI",
-        cmd='Config().set("dtparam=spi", "on")')
-    # do(msg="Add SPI module",
+    # print("Setup interfaces")
+    # do(msg="turn on I2C",
+    #     cmd='Config().set("dtparam=i2c_arm", "on")')
+    # do(msg="Add I2C module",
     #     cmd='Modules().set("i2c-dev")')
-    do(msg="turn on one-wire",
-        cmd='Config().set("dtoverlay", "w1-gpio")')
-    do(msg="turn on Lirc",
-        cmd='Config().set("dtoverlay=lirc-rpi:gpio_in_pin", "26")')
-    do(msg="turn on Uart",
-        cmd='Config().set("enable_uart", "1")')
-    do(msg="set gpu memory to 128",
-        cmd='Config().set("gpu_mem", "128")')
-    do(msg="enable camera",
-        cmd='Config().set("start_x", "1")')
-    do(msg="turn off serial terminal",
-        cmd='Cmdline().remove("console=serial0")')
+    # do(msg="turn on SPI",
+    #     cmd='Config().set("dtparam=spi", "on")')
+    # # do(msg="Add SPI module",
+    # #     cmd='Modules().set("i2c-dev")')
+    # do(msg="turn on one-wire",
+    #     cmd='Config().set("dtoverlay", "w1-gpio")')
+    # do(msg="turn on Lirc",
+    #     cmd='Config().set("dtoverlay=lirc-rpi:gpio_in_pin", "26")')
+    # do(msg="turn on Uart",
+    #     cmd='Config().set("enable_uart", "1")')
+    # do(msg="set gpu memory to 128",
+    #     cmd='Config().set("gpu_mem", "128")')
+    # do(msg="enable camera",
+    #     cmd='Config().set("start_x", "1")')
+    # do(msg="turn off serial terminal",
+    #     cmd='Cmdline().remove("console=serial0")')
 
     # print("Setup ezblock service")
     # do(msg="copy ezblock file",
@@ -120,7 +120,7 @@ def install():
     #     cmd='run_command("sudo chmod +x /usr/bin/ezblock-service")')
     # do(msg="copy libezblock file",
     #     cmd='run_command("sudo cp ./lib/libezblock.so /usr/local/lib/python3.7/dist-packages")')
-    
+
 
     # print("Setup ezblock-reset service")
     # do(msg="copy ezblock-reset file",
@@ -187,7 +187,7 @@ def cleanup():
         cmd='run_command("sudo rm -rf usr ezblock.egg-info")')
 
 class Modules(object):
-    ''' 
+    '''
         To setup /etc/modules
     '''
 
@@ -229,7 +229,7 @@ class Modules(object):
             return -1, e
 
 class Config(object):
-    ''' 
+    '''
         To setup /boot/config.txt
     '''
 
@@ -275,7 +275,7 @@ class Config(object):
             return -1, e
 
 class Cmdline(object):
-    ''' 
+    '''
         To setup /boot/cmdline.txt
     '''
 
