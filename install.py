@@ -45,7 +45,7 @@ APT_INSTALL_LIST = [
 PIP_INSTALL_LIST = [
     "picamera",
     "gpiozero",
-    "opencv-contrib-python==4.1.0.25",
+    "opencv-contrib-python==4.4.0.46",
     # "paho-mqtt",
     # "websockets",
     "pyzbar",
