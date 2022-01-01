@@ -13,7 +13,7 @@ class PWM(I2C):
     REG_PSC = 0x40
     REG_ARR = 0x44
 
-    ADDR = 0x14
+    ADDR = 0x68
 
     CLOCK = 72000000
 
