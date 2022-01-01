@@ -204,14 +204,14 @@ class Pin(object):
     def value(self, *value):
         if len(value) == 0:
             self.mode(self.IN)
-            result = self.gpio1.read(self._pin)
+            result = self.gpio1.read(s)
             #result = GPIO.input(self._pin)
             # self._debug("read pin %s: %s" % (self._pin, result))
             return result
         else:
             value = value[0]
             self.mode(self.OUT)
-            self.gpio1.write(self._pin, value)
+            self.gpio1.write(value)
             #GPIO.output(self._pin, value)
             return value
 
