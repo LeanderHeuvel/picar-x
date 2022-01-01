@@ -5,9 +5,9 @@ from periphery import GPIO
 class Pin(object):
     OUT = "out"
     IN = "out"
-    IRQ_FALLING = GPIO.FALLING
-    IRQ_RISING = GPIO.RISING
-    IRQ_RISING_FALLING = GPIO.BOTH
+    IRQ_FALLING = "FALLING"
+    IRQ_RISING = "RISING"
+    IRQ_RISING_FALLING = "BOTH"
     PULL_UP = "pull_up"
     PULL_DOWN = "pull_down"
     PULL_NONE = None
@@ -237,7 +237,7 @@ class Pin(object):
 
     def irq(self, handler=None, trigger=None, bouncetime=200):
         self.mode(self.IN)
-        GPIO.add_event_detect(self._pin, trigger, callback=handler, bouncetime=bouncetime)
+        # GPIO.add_event_detect(self._pin, trigger, callback=handler, bouncetime=bouncetime)
 
     def name(self):
         return "GPIO%s"%self._pin
