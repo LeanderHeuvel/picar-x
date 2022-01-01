@@ -172,12 +172,12 @@ class Pin(object):
         self._mode = mode
         if mode != None: ##TODO
             if pull != None:
-                self.gpio = GPIO("/dev/gpiochip"+str(self._pin),int(self._line), direction=mode)
+                self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line), direction=mode)
                 #GPIO.setup(self._pin, mode, pull_up_down=pull)
             else:
-                self.gpio = GPIO("/dev/gpiochip"+str(self._pin),int(self._line),direction=mode)
+                self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line),direction=mode)
         else:
-            self.gpio = GPIO("/dev/gpiochip"+str(self._pin),int(self._line), direction = mode)
+            self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line), direction = mode)
     def line_list(self, *_line_list):
         if len(_line_list) == 0:
             return self._line_list
