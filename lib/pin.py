@@ -1,14 +1,15 @@
 # from .basic import _Basic_class
-import RPi.GPIO as GPIO
-# from periphery import GPIO
+#import RPi.GPIO as GPIO
+from periphery import GPIO
+
 class Pin(object):
-    OUT = GPIO.OUT
-    IN = GPIO.IN
+    OUT = "out"
+    IN = "out"
     IRQ_FALLING = GPIO.FALLING
     IRQ_RISING = GPIO.RISING
     IRQ_RISING_FALLING = GPIO.BOTH
-    PULL_UP = GPIO.PUD_UP
-    PULL_DOWN = GPIO.PUD_DOWN
+    PULL_UP = "pull_up"
+    PULL_DOWN = "pull_down"
     PULL_NONE = None
 
     _dict = {
@@ -68,6 +69,58 @@ class Pin(object):
         "BLERST": 20,
         "MCURST":  5, # Changed
     }
+    _dict_3 = {
+        "D0":  17,
+        "D1":   4, # Changed
+        "D2":  0, #chip 0
+        "D3":  2, #chip 2
+        "D4":  2, #chip 2
+        "D5":  24,
+        "D6":  25, # Removed
+        "D7":   4, # Removed
+        "D8":   5, # Removed
+        "D9":   6,
+        "D10": 12,
+        "D11": 13,
+        "D12": 19,
+        "D13": 16,
+        "D14": 26,
+        "D15": 20,
+        "D16": 21,
+        "SW":  25, # Changed
+        "LED": 2, #chip 2
+        "BOARD_TYPE": 0, # chip 0
+        "RST": 16,
+        "BLEINT": 13,
+        "BLERST": 20,
+        "MCURST":  0, # chip0
+    }
+    _line_1 = {
+        "D0":  17,
+        "D1":   4, # Changed
+        "D2":  6, # line 6
+        "D3":  0, # PIN15, line 0
+        "D4":  9, #PIN16, line 9
+        "D5":  24,
+        "D6":  25, # Removed
+        "D7":   4, # Removed
+        "D8":   5, # Removed
+        "D9":   6,
+        "D10": 12,
+        "D11": 13,
+        "D12": 19,
+        "D13": 16,
+        "D14": 26,
+        "D15": 20,
+        "D16": 21,
+        "SW":  25, # Changed
+        "LED": 13, #line 13
+        "BOARD_TYPE": 0, #line 0
+        "RST": 16,
+        "BLEINT": 13,
+        "BLERST": 20,
+        "MCURST":  7, # line 7
+    }
 
     def __init__(self, *value):
         super().__init__()
@@ -90,10 +143,12 @@ class Pin(object):
             try:
                 self._board_name = pin
                 self._pin = self.dict()[pin]
+                self._line = self.line_list()[pin]
             except Exception as e:
                 print(e)
                 self._error('Pin should be in %s, not %s' % (self._dict.keys(), pin))
         elif isinstance(pin, int):
+            print("no line number set")
             self._pin = pin
         else:
             self._error('Pin should be in %s, not %s' % (self._dict.keys(), pin))
@@ -103,20 +158,32 @@ class Pin(object):
 
     def check_board_type(self):
         type_pin = self.dict()["BOARD_TYPE"]
-        GPIO.setup(type_pin, GPIO.IN)
-        if GPIO.input(type_pin) == 0:
-            self._dict = self._dict_1
-        else:
-            self._dict = self._dict_2
+        self._dict = self._dict_3
+        self._line_list = self._line_1
+        # GPIO.setup(type_pin, GPIO.IN)
+        # if GPIO.input(type_pin) == 0:
+        #     self._dict = self._dict_1
+        # else:
+        #     self._dict = self._dict_2
 
     def init(self, mode, pull=PULL_NONE):
         self._pull = pull
         self._mode = mode
         if mode != None:
             if pull != None:
-                GPIO.setup(self._pin, mode, pull_up_down=pull)
+                self.gpio = GPIO("/dev/gpiochip"+str(self._pin),self._line,bias="disable")
+                #GPIO.setup(self._pin, mode, pull_up_down=pull)
             else:
-                GPIO.setup(self._pin, mode)
+                self.gpio = GPIO("/dev/gpiochip"+str(self._pin),self._line,bias="disable")
+    def line_list(self, *_line_list):
+        if len(_line_list) == 0:
+            return self._pin_list
+        else:
+            if isinstance(_line_list, dict):
+                self._dict = _line_list
+            else:
+                self._error(
+                    'argument should be a pin dictionary like {"my pin": ezblock.Pin.cpu.GPIO17}, not %s' % _line_list)
 
     def dict(self, *_dict):
         if len(_dict) == 0:
@@ -134,13 +201,15 @@ class Pin(object):
     def value(self, *value):
         if len(value) == 0:
             self.mode(self.IN)
-            result = GPIO.input(self._pin)
+            result = self.gpio.read(self._pin)
+            #result = GPIO.input(self._pin)
             # self._debug("read pin %s: %s" % (self._pin, result))
             return result
         else:
             value = value[0]
             self.mode(self.OUT)
-            GPIO.output(self._pin, value)
+            self.gpio.write(self._pin, value)
+            #GPIO.output(self._pin, value)
             return value
 
     def on(self):
@@ -161,7 +230,7 @@ class Pin(object):
         else:
             mode = value[0]
             self._mode = mode
-            GPIO.setup(self._pin, mode)
+            self.gpio.direction(mode)
 
     def pull(self, *value):
         return self._pull
