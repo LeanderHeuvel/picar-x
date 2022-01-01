@@ -75,7 +75,7 @@ class Pin(object):
         "D2":  0, #chip 0
         "D3":  2, #chip 2
         "D4":  2, #chip 2
-        "D5":  0,
+        "D5":  0, #chip 0
         "D6":  25, # Removed
         "D7":   4, # Removed
         "D8":   5, # Removed
@@ -101,7 +101,7 @@ class Pin(object):
         "D2":  6, # line 6
         "D3":  0, # PIN15, line 0
         "D4":  9, #PIN16, line 9
-        "D5":  7,
+        "D5":  7, # line 7
         "D6":  25, # Removed
         "D7":   4, # Removed
         "D8":   5, # Removed
