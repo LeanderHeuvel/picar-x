@@ -144,6 +144,7 @@ class Pin(object):
                 self._board_name = pin
                 self._pin = self.dict()[pin]
                 self._line = self.line_list()[pin]
+                print(self._line)
             except Exception as e:
                 print(e)
                 self._error('Pin should be in %s, not %s' % (self._dict.keys(), pin))
