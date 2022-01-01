@@ -233,7 +233,7 @@ class Pin(object):
         else:
             mode = value[0]
             self._mode = mode
-            self.gpio1.direction(mode)
+            self.gpio1.direction = mode
 
     def pull(self, *value):
         return self._pull
