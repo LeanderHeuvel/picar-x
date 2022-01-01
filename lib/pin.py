@@ -191,7 +191,7 @@ class Pin(object):
     def dict(self, *_dict):
         if len(_dict) == 0:
             return self._dict
-           else:
+        else:
             if isinstance(_dict, dict):
                 self._dict = _dict
             else:
