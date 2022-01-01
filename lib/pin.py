@@ -177,7 +177,7 @@ class Pin(object):
                 self.gpio = GPIO("/dev/gpiochip"+str(self._pin),self._line,bias="disable")
     def line_list(self, *_line_list):
         if len(_line_list) == 0:
-            return self._pin_list
+            return self._line_list
         else:
             if isinstance(_line_list, dict):
                 self._dict = _line_list
