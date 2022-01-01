@@ -4,7 +4,7 @@ from periphery import GPIO
 
 class Pin(object):
     OUT = "out"
-    IN = "out"
+    IN = "in"
     IRQ_FALLING = "FALLING"
     IRQ_RISING = "RISING"
     IRQ_RISING_FALLING = "BOTH"
@@ -204,14 +204,17 @@ class Pin(object):
     def value(self, *value):
         if len(value) == 0:
             self.mode(self.IN)
-            result = self.gpio1.read(s)
+            result = self.gpio1.read()
             #result = GPIO.input(self._pin)
             # self._debug("read pin %s: %s" % (self._pin, result))
             return result
         else:
             value = value[0]
             self.mode(self.OUT)
-            self.gpio1.write(value)
+            if value==0:
+                self.gpio1.write(False)
+            else:
+                self.gpio1.write(True)
             #GPIO.output(self._pin, value)
             return value
 
