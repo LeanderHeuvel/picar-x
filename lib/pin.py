@@ -172,12 +172,12 @@ class Pin(object):
         self._mode = mode
         if mode != None: ##TODO
             if pull != None:
-                self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line), direction=mode)
+                self.gpio1 = GPIO("/dev/gpiochip"+str(self._pin),int(self._line), mode)
                 #GPIO.setup(self._pin, mode, pull_up_down=pull)
             else:
-                self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line),direction=mode)
+                self.gpio1 = GPIO( "/dev/gpiochip"+str(self._pin),int(self._line),mode)
         else:
-            self.gpio = GPIO(path = "/dev/gpiochip"+str(self._pin),line = int(self._line), direction = mode)
+            self.gpio1 = GPIO("/dev/gpiochip"+str(self._pin),int(self._line), mode)
     def line_list(self, *_line_list):
         if len(_line_list) == 0:
             return self._line_list
@@ -191,7 +191,7 @@ class Pin(object):
     def dict(self, *_dict):
         if len(_dict) == 0:
             return self._dict
-        else:
+           else:
             if isinstance(_dict, dict):
                 self._dict = _dict
             else:
@@ -204,14 +204,14 @@ class Pin(object):
     def value(self, *value):
         if len(value) == 0:
             self.mode(self.IN)
-            result = self.gpio.read(self._pin)
+            result = self.gpio1.read(self._pin)
             #result = GPIO.input(self._pin)
             # self._debug("read pin %s: %s" % (self._pin, result))
             return result
         else:
             value = value[0]
             self.mode(self.OUT)
-            self.gpio.write(self._pin, value)
+            self.gpio1.write(self._pin, value)
             #GPIO.output(self._pin, value)
             return value
 
@@ -233,7 +233,7 @@ class Pin(object):
         else:
             mode = value[0]
             self._mode = mode
-            self.gpio.direction(mode)
+            self.gpio1.direction(mode)
 
     def pull(self, *value):
         return self._pull
