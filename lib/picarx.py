@@ -17,7 +17,7 @@ class Picarx(object):
         self.dir_servo_pin = Servo(PWM('P2'))
         self.camera_servo_pin1 = Servo(PWM('P0'))
         self.camera_servo_pin2 = Servo(PWM('P1'))
-        self.config_flie = fileDB('~/.config')
+        self.config_flie = fileDB('~/.picar_config')
         self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
         self.cam_cal_value_1 = int(self.config_flie.get("picarx_cam1_servo", default_value=0))
         self.cam_cal_value_2 = int(self.config_flie.get("picarx_cam2_servo", default_value=0))
@@ -158,7 +158,7 @@ class Picarx(object):
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
 
-    def forward(self,speed):
+    def forward(self, speed):
         current_angle = self.dir_current_angle
         if current_angle != 0:
             abs_current_angle = abs(current_angle)
