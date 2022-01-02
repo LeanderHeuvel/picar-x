@@ -2,7 +2,7 @@
 from i2c import I2C
 
 class ADC(I2C):
-    ADDR=0x14                   # The address of the expansion board is 0x14
+    ADDR=0x68                   # The address of the expansion board is 0x14
 
     def __init__(self, chn):    # Parameters, number of channels, 8 adc channels on the Raspberry Pi expansion board are:"A0, A1, A2, A3, A4, A5, A6, A7"
         super().__init__()
